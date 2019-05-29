@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 class AddCardActivity extends Component {
+
 	render() {
+		const { navigation } = this.props;
+		const deck = navigation.getParam('deck', {});
 		return(
 			<View>
-
+				<Text>Add card to {deck.title}</Text>
 			</View>
 		)
 	}

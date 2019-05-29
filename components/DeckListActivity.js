@@ -11,12 +11,8 @@ class DeckListActivity extends Component {
 		this.props.dispatch(fetchAllDecksThunk());
 	}
 
-	onItemClick = (item) => {
-		this.props.navigation.push('DeckActivity');
-	}
-
 	renderItem = ({ item }) => {
-		return <DeckListItem item={item} onClick={this.onItemClick}/>
+		return <DeckListItem item={item} navigation={this.props.navigation}/>
 	}
 
 	keyExtractor = (item, index) => {

@@ -12,7 +12,6 @@ class DeckListItem extends Component {
 
 	onPressHandler = () => {
 		const { item, dispatch } = this.props;
-
 		dispatch(removeDeckThunk(item));
 	}
 
@@ -21,6 +20,11 @@ class DeckListItem extends Component {
 		return(
 			<View style={styles.body}>
 				<Text>{item.title}</Text>
+				<TouchableOpacity 
+					style={styles.button} 
+					onPress={() => this.props.navigation.navigate('DeckActivity', { deck: item })}>
+					<Text>OPEN DECK</Text>
+				</TouchableOpacity>
 				<TouchableOpacity style={styles.button} onPress={this.onPressHandler}>
 					<Text>DELETE</Text>
 				</TouchableOpacity>
