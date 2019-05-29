@@ -1,35 +1,44 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 class DeckActivity extends Component {
 
 	static navigationOptions = ({ navigation }) => {
-		
-		const deck = navigation.getParam('deck', {});
+		const title = navigation.getParam('title', '');
 
 		return {
-			title: deck.title,
+			title,
 		}
+	}
+
+	getDeck = () => {
+		const { decks, navigation } = this.props;
+		const id = navigation.getParam('id', '');
+
+		return decks[id];
 	}
 
 	onAddPressHandler = () => {
 		const { navigation } = this.props;
-		const deck = navigation.getParam('deck', {});
+		const deck = this.getDeck();
 		navigation.navigate('AddCardActivity', { deck })
 	}
 
 	onStartPressHandler = () => {
 		const { navigation } = this.props;
-		const deck = navigation.getParam('deck', {});
-		navigation.navigate('QuizActivity', { cards: deck.cards })
+		const deck = this.getDeck();
+
+		if (deck.cards.length > 0) {
+			navigation.navigate('QuizActivity', { cards: deck.cards })	
+		}
 	}
 
 	render() {
 		const { navigation } = this.props;
-		const deck = navigation.getParam('deck', {});
+		const deck = this.getDeck();
 		return(
 			<View>
-				<Text>{deck.title}</Text>
 				<Text>{deck.cards.length} cards</Text>
 				<TouchableOpacity style={styles.button} onPress={this.onAddPressHandler}>
 					<Text>ADD CARD</Text>
@@ -61,4 +70,10 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default DeckActivity;
+function mapStateToProps({ decks }){
+	return {
+		decks: decks,
+	}
+}
+
+export default connect(mapStateToProps)(DeckActivity);

@@ -22,7 +22,10 @@ class DeckListItem extends Component {
 				<Text>{item.title}</Text>
 				<TouchableOpacity 
 					style={styles.button} 
-					onPress={() => this.props.navigation.navigate('DeckActivity', { deck: item })}>
+					onPress={() => this.props.navigation.navigate('DeckActivity', { 
+						id: item.id,
+						title: item.title,
+					})}>
 					<Text>OPEN DECK</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.button} onPress={this.onPressHandler}>
