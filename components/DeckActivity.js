@@ -3,6 +3,15 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 class DeckActivity extends Component {
 
+	static navigationOptions = ({ navigation }) => {
+		
+		const deck = navigation.getParam('deck', {});
+
+		return {
+			title: deck.title,
+		}
+	}
+
 	onAddPressHandler = () => {
 		const { navigation } = this.props;
 		const deck = navigation.getParam('deck', {});

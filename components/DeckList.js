@@ -6,7 +6,7 @@ import { objectToArray } from '../utils/objectToArray';
 import { fetchAllDecksThunk } from '../actions/decks';
 import DeckListItem from './DeckListItem';
 
-class DeckListActivity extends Component {
+class DeckList extends Component {
 	componentDidMount(){
 		this.props.dispatch(fetchAllDecksThunk());
 	}
@@ -47,4 +47,4 @@ function mapStateToProps({ decks }){
 	}
 }
 
-export default connect(mapStateToProps)(DeckListActivity);
+export default connect(mapStateToProps)(DeckList);

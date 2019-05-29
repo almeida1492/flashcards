@@ -1,44 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 import { 
 	StyleSheet, 
 	Text, 
 	View,
+	StatusBar,
 } from 'react-native';
-import DeckListActivity from './DeckListActivity';
-import DeckActivity from './DeckActivity';
-import AddCardActivity from './AddCardActivity';
-import QuizActivity from './QuizActivity';
+
+import NewDeck from './NewDeck'
+import DeckList from './DeckList';
 
 class MainActivity extends Component {
 	render() {
 		return (
-			<StackContainer/>
+			<TabContainer/>
 		);
 	}
 }
 
-const StackNavigator = createStackNavigator({
-	DeckListActivity: {
-		screen: DeckListActivity,
-	},
-	DeckActivity: {
-		screen: DeckActivity,
-	},
-	AddCardActivity: {
-		screen: AddCardActivity,
-	},
-	QuizActivity: {
-		screen: QuizActivity,
-	},
-},
-{
-    navigationOptions: {
-      header: null,
-    },
-    headerMode: 'none',
-})
-const StackContainer = createAppContainer(StackNavigator);
+const TabNavigator = createMaterialTopTabNavigator({
+  Home: {
+    screen: DeckList,
+  },
+  NewDeck: {
+    screen: NewDeck,
+  },
+});
+const TabContainer = createAppContainer(TabNavigator);
 
 export default MainActivity;
