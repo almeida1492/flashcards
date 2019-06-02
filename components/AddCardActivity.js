@@ -25,10 +25,21 @@ class AddCardActivity extends Component {
 
 	render() {
 		const { question, answer } = this.state;
+		const { navigation } = this.props;
+		const deck = navigation.getParam('deck', {});
 		return(
-			<View>
-				<TextInput value={question} onChangeText={(question) => this.setState({ question })}/>
-				<TextInput value={answer} onChangeText={(answer) => this.setState({ answer })}/>
+			<View style={styles.container}>
+				<Text style={styles.title}>{deck.title}</Text>
+				<TextInput
+					style={styles.input}
+					placeholder='Question'
+					value={question} 
+					onChangeText={(question) => this.setState({ question })}/>
+				<TextInput 
+					style={styles.input}
+					placeholder='Answer'
+					value={answer} 
+					onChangeText={(answer) => this.setState({ answer })}/>
 				<TouchableOpacity style={styles.button} onPress={this.onPressHandler}>
 					<Text style={styles.buttonText}>Submit</Text>
 		        </TouchableOpacity>
@@ -38,18 +49,37 @@ class AddCardActivity extends Component {
 }
 
 const styles = StyleSheet.create({
+	container: {
+	    flex: 1,
+	    backgroundColor: '#fff',
+	    alignItems: 'center',
+	    justifyContent: 'center',
+	},
 	button: {
-		backgroundColor: '#E53224',
+		backgroundColor: '#EF8354',
 		padding: 10,
 		paddingLeft: 50,
 		paddingRight: 50,
+		marginTop: 70,
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: 5,
 	},
 	buttonText: {
 		color: '#fff'
-	}
+	},
+	title: {
+		fontSize: 17,
+		marginBottom: 40,
+	},
+	input: {
+    borderRadius: 5,
+    borderWidth: 0.5,
+    borderColor: '#212121',
+    paddingLeft: 10,
+    marginTop: 10,
+    width: 300,
+  },	
 });
 
 export default connect()(AddCardActivity);

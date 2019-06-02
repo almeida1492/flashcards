@@ -22,7 +22,7 @@ class NewDeck extends Component {
 
     if (input !== '') {
       dispatch(submitDeckThunk({ id: key, title: input, cards: [] }, key));  
-      navigation.navigate('Home');
+      navigation.navigate('DeckActivity', { id: key });
     }
   }
 
@@ -30,10 +30,14 @@ class NewDeck extends Component {
     const { input } = this.state;
     return (
       <View style={styles.container}>
-        <Text>What is the title of your new deck?</Text>
-        <TextInput value={input} onChangeText={(input) => this.setState({ input })}/>
+        <Text style={styles.title}>What is the title of your new deck?</Text>
+        <TextInput 
+          style={styles.input}
+          value={input} 
+          placeholder='Deck Title'
+          onChangeText={(input) => this.setState({ input })}/>
         <TouchableOpacity style={styles.button} onPress={this.onPressHandler}>
-          <Text style={styles.buttonText}>Submit</Text>
+          <Text style={styles.buttonText}>Create Deck</Text>
         </TouchableOpacity>
       </View>
     )
@@ -47,14 +51,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  input: {
+    borderRadius: 5,
+    borderWidth: 0.5,
+    borderColor: '#212121',
+    paddingLeft: 10,
+    marginTop: 10,
+    width: 300,
+  },
   button: {
-    backgroundColor: '#E53224',
+    backgroundColor: '#EF8354',
     padding: 10,
     paddingLeft: 50,
     paddingRight: 50,
+    marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
+  },
+  title: {
+    fontSize: 17,
+    marginBottom: 40,
   },
   buttonText: {
     color: '#fff'

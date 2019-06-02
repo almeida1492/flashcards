@@ -40,29 +40,39 @@ class QuizActivity extends Component {
 		const cards = navigation.getParam('cards', []);
 		return(
 			<View>
+				<Text style={{ backgroundColor: '#4F5D75', padding: 10, color: '#fff' }}>
+					{index + 1}/{cards.length}
+				</Text>
 				{!isComplete ? 
-					<View>
-						<Text>
-							{correctAnswers}/{cards.length}
-						</Text>
-						<Text>
+					<View style={styles.body}>
+						<Text style={styles.main}>
 							{!isShowingAnswer ? cards[index].question : cards[index].answer}
 						</Text>
-						<Text onPress={() => this.setState({ isShowingAnswer: !isShowingAnswer })}>
-							{!isShowingAnswer ? 'Show answer' : 'Show question'}
+						<Text 
+							style={styles.showAnswerText} 
+							onPress={() => this.setState({ isShowingAnswer: !isShowingAnswer })}>
+								{!isShowingAnswer ? 'Show Answer' : 'Show Question'}
 						</Text>
 						<TouchableOpacity style={styles.button} onPress={() => this.onPressHandler(true)}>
-							<Text>CORRECT</Text>
+							<Text style={styles.buttonText}>Correct</Text>
 						</TouchableOpacity>
 						<TouchableOpacity style={styles.button} onPress={() => this.onPressHandler(false)}>
-							<Text>INCORRECT</Text>
+							<Text style={styles.buttonText}>Incorrect</Text>
 						</TouchableOpacity>
 					</View>
 					:
-					<View>
-						<Text>You finished and your score is {correctAnswers}/{cards.length}</Text>
-						<TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MainActivity')}>
-							<Text>HOME</Text>
+					<View style={styles.body}>
+						<Text style={styles.main}>You finished and your score is {correctAnswers}/{cards.length}</Text>
+						<TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+							<Text style={styles.buttonText}>Back to Deck</Text>
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.button} onPress={() => this.setState({
+							index: 0,
+							correctAnswers: 0,
+							isShowingAnswer: false,
+							isComplete: false,
+						})}>
+							<Text style={styles.buttonText}>Restart Quiz</Text>
 						</TouchableOpacity>
 					</View>
 				}
@@ -73,21 +83,33 @@ class QuizActivity extends Component {
 
 const styles = StyleSheet.create({
 	body: {
-		marginTop: 50,
-		marginBottom: 50,
+		height: '100%',
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: '#4F5D75',
+	},
+	main: {
+		fontSize: 17,
+		marginBottom: 40,
+		color: '#fff',
+	},
+	showAnswerText: {
+		marginBottom: 60,
+		padding: 20,
+		color: '#fff',
 	},
 	button: {
-		backgroundColor: '#E53224',
+		backgroundColor: '#EF8354',
 		padding: 10,
-		paddingLeft: 50,
-		paddingRight: 50,
+		width: 200,
+		marginBottom: 20,
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: 5,
 	},
 	buttonText: {
 		color: '#fff'
-	}
+	},
 });
 
 export default QuizActivity;

@@ -7,29 +7,18 @@ import {
 	TouchableOpacity, 
 } from 'react-native';
 import { removeDeckThunk } from '../actions/decks';
+import generateCountText from '../utils/generateCountText';
 
 class DeckListItem extends Component {
-
-	onPressHandler = () => {
-		const { item, dispatch } = this.props;
-		dispatch(removeDeckThunk(item));
-	}
-
 	render() {
 		const { item } = this.props
 		return(
-			<View style={styles.body}>
-				<Text>{item.title}</Text>
+			<View>
 				<TouchableOpacity 
-					style={styles.button} 
-					onPress={() => this.props.navigation.navigate('DeckActivity', { 
-						id: item.id,
-						title: item.title,
-					})}>
-					<Text>OPEN DECK</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.button} onPress={this.onPressHandler}>
-					<Text>DELETE</Text>
+					style={styles.body} 
+					onPress={() => this.props.navigation.navigate('DeckActivity', { id: item.id })}>
+					<Text style={styles.title}>{item.title}</Text>
+					<Text style={styles.count}>{generateCountText(item)}</Text>
 				</TouchableOpacity>
 			</View>
 		)
@@ -38,21 +27,23 @@ class DeckListItem extends Component {
 
 const styles = StyleSheet.create({
 	body: {
-		marginTop: 50,
-		marginBottom: 50,
-	},
-	button: {
-		backgroundColor: '#E53224',
+		backgroundColor: '#FFFFFF',
 		padding: 10,
 		paddingLeft: 50,
 		paddingRight: 50,
 		justifyContent: 'center',
 		alignItems: 'center',
-		borderRadius: 5,
 	},
-	buttonText: {
-		color: '#fff'
-	}
+	title: {
+		fontSize: 17,
+		marginTop: 20,
+	},
+	count: {
+		fontSize: 14,
+		color: '#9E9E9E',
+		marginTop: 10,
+		marginBottom: 20,
+	},
 });
 
 export default connect()(DeckListItem);
