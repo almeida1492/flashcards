@@ -17,10 +17,15 @@ import DeckList from './components/DeckList';
 import DeckActivity from './components/DeckActivity';
 import AddCardActivity from './components/AddCardActivity';
 import QuizActivity from './components/QuizActivity';
+import { setLocalNotification } from './utils/api';
 
 const store = createStore(reducer, middleware);
 
 class App extends Component {
+
+  componentDidMount(){
+    setLocalNotification();
+  }
 
   render() {
     return(

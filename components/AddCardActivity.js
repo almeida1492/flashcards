@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, } from 'react-native';
 import { connect } from 'react-redux';
 import { submitDeckThunk } from '../actions/decks';
+import Toast, { DURATION } from 'react-native-easy-toast';
 
 class AddCardActivity extends Component {
 	state = {
@@ -11,7 +12,6 @@ class AddCardActivity extends Component {
 
 	onPressHandler = () => {
 		const { question, answer } = this.state;
-
 		const { navigation, dispatch } = this.props;
 		const deck = navigation.getParam('deck', {});
 
@@ -20,6 +20,8 @@ class AddCardActivity extends Component {
 			deck.cards.push(card);
 			dispatch(submitDeckThunk(deck, deck.id))
 			navigation.goBack();
+		} else {
+			this.refs.toast.show('Filling the fields is mandatory.', 1300);
 		}
 	}
 
@@ -43,6 +45,7 @@ class AddCardActivity extends Component {
 				<TouchableOpacity style={styles.button} onPress={this.onPressHandler}>
 					<Text style={styles.buttonText}>Submit</Text>
 		        </TouchableOpacity>
+		        <Toast ref="toast" positionValue={180}/>
 			</View>
 		)
 	}

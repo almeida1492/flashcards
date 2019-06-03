@@ -9,6 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import { submitDeckThunk } from '../actions/decks';
+import Toast, { DURATION } from 'react-native-easy-toast';
 
 class NewDeck extends Component {
   state = {
@@ -23,6 +24,8 @@ class NewDeck extends Component {
     if (input !== '') {
       dispatch(submitDeckThunk({ id: key, title: input, cards: [] }, key));  
       navigation.navigate('DeckActivity', { id: key });
+    } else {
+      this.refs.toast.show('You must type a title.', 1300);
     }
   }
 
@@ -39,6 +42,7 @@ class NewDeck extends Component {
         <TouchableOpacity style={styles.button} onPress={this.onPressHandler}>
           <Text style={styles.buttonText}>Create Deck</Text>
         </TouchableOpacity>
+        <Toast ref="toast" positionValue={180}/>
       </View>
     )
   }

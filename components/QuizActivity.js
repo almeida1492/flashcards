@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, } from 'react-native';
+import { setLocalNotification, clearLocalNotification } from '../utils/api';
 
 class QuizActivity extends Component {
 	state = {
@@ -20,6 +21,7 @@ class QuizActivity extends Component {
 		}
 
 		if (index === cards.length - 1) {
+			clearLocalNotification().then(setLocalNotification())
 			this.setState({ 
 				isComplete: true,
 				correctAnswers: correctAnswersUpdate,
